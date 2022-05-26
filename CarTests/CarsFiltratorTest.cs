@@ -1,10 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Car;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Car
+namespace CarTests
 {
-    class Program
+    class CarsFiltratorTest
     {
-        static void Main(string[] args)
+        CarsFiltrator _carsFiltrator;
+        IEnumerable<ICar> _cars;
+
+        [SetUp]
+        public void Setup()
         {
             ICarFactory carFactory = new CarFactory();
             List<ICar> cars = new List<ICar>();
@@ -22,12 +32,20 @@ namespace Car
             var carsRead = CarStorage.ReadFile();
 
             CarsFiltrator carsFiltrator = new CarsFiltrator(carsRead);
-            var brokenCarsOrderedByBrandAndEngineDisplacemant = carsFiltrator.GetBrokenCarsOrderedByBrandAndEngineDisplacemant();
-            var brandCarWhichBreaksTheMost = carsFiltrator.GetBrandCarWhichBreaksTheMost();
-            var colorCarWichBreaksTheLeast = carsFiltrator.GetColorCarWichBreaksTheLeast();
-            var wheelsDiameterCarWichBreaksTheLeast = carsFiltrator.GetWheelsDiameterCarWichBreaksTheLeast();
-            var carBrandWithTheLargestEngineDisplacement = carsFiltrator.GetCarBrandWithTheLargestEngineDisplacement();
-            var brokenWheels = carsFiltrator.GetBrokenWheels();
+            _carsFiltrator = carsFiltrator;
+            _cars = carsRead;
+        }
+
+        [Test]
+        public void GetBrokenCarsOrderedByBrandAndEngineDisplacemant_Test()
+        {
+            // Arrange
+
+            // Act
+            var carsBrokenCarsOrderedByBrandAndEngineDisplacemant = _carsFiltrator.GetBrokenCarsOrderedByBrandAndEngineDisplacemant();
+
+            //Assert
+            Assert.AreEqual(carsBrokenCarsOrderedByBrandAndEngineDisplacemant, cars);
         }
     }
 }

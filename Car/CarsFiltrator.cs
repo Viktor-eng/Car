@@ -1,44 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Car
 {
     class CarsFiltrator
     {
-        private readonly List<ICar> _cars;
+        private readonly IEnumerable<ICar> _cars;
 
-
-        public CarsFiltrator(List<ICar> cars)
+        public CarsFiltrator(IEnumerable<ICar> cars)
         {
-            _cars = cars;
+            _cars = cars ?? throw new ArgumentNullException(nameof(cars));
         }
 
-
-        public void GetBrokenCarsOrderedByBrandAndEngineDisplacemant()
+        public IEnumerable<ICar> GetBrokenCarsOrderedByBrandAndEngineDisplacemant()
         {
-            var sortCars = _cars
-                 .Where(c => c.IsBroken)
-                .OrderBy(c => c.CarBrand)
-                .ThenBy(c => c.EngineDisplacement)
-                .ToList();
+            return _cars.Where(c => c.IsBroken)
+                        .OrderBy(c => c.CarBrand)
+                        .ThenBy(c => c.EngineDisplacement)
+                        .ToList();
         }
 
-        public void GetBrandCarWhichBreaksTheMost()
+        public CarBrand GetBrandCarWhichBreaksTheMost()
         {
-            var sortCars = _cars
+            return _cars
                 .Where(c => c.IsBroken)
                 .GroupBy(c => c.CarBrand)
                 .Select(c => new { CarBrand = c.Key, Count = c.Count() })
                 .OrderByDescending(c => c.Count)
                 .First().CarBrand;
+            
         }
 
-        public void GetColorCarWichBreaksTheLeast()
+        public Color GetColorCarWichBreaksTheLeast()
         {
-            var sortCars = _cars
+            return _cars
                 .Where(c => c.IsBroken)
                 .GroupBy(c => c.Color)
                 .Select(c => new { Color = c.Key, Count = c.Count() })
@@ -46,7 +42,7 @@ namespace Car
                 .First().Color;
         }
 
-        public void GetWheelsDiameterCarWichBreaksTheLeast()
+        public int GetWheelsDiameterCarWichBreaksTheLeast()
         {
             var sortCars = _cars
                 .Where(c => c.IsBroken)
@@ -54,19 +50,19 @@ namespace Car
                 .ToDictionary(c => c.Key, c => c.ToArray());
 
             var minCarBrand = sortCars.Min(c => c.Value.Length);
-            var endCar = sortCars.Where(c => c.Value.Length == minCarBrand).First().Value.First().Wheels.First().WheelDiameter;
+            return sortCars.Where(c => c.Value.Length == minCarBrand).First().Value.First().Wheels.First().WheelDiameter;
         }
 
-        public void GetCarBrandWithTheLargestEngineDisplacement()
+        public CarBrand GetCarBrandWithTheLargestEngineDisplacement()
         {
-            var sortCars = _cars
+            return _cars
                 .OrderByDescending(c => c.EngineDisplacement)
                 .First().CarBrand;
         }
 
-        public void GetBrokenWheels()
+        public int GetBrokenWheels()
         {
-            var sortCars = _cars
+            return _cars
                 .SelectMany(c => c.Wheels)
                 .Where(w => w.IsBroken).Count();
         }
