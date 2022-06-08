@@ -64,7 +64,8 @@ namespace CarTests
                 new CarMechanic(20, CarBrand.Lada, Color.White, wheels, 1.8d, true),
                 new CarAutomatic(30, CarBrand.BMW, Color.White, wheels, 2.0d, true),
                 new CarAutomatic(25, CarBrand.Lada, Color.White, wheels, 1.9d, true),
-                new CarMechanic(35, CarBrand.BMW, Color.White, wheels, 1.9d, true)
+                new CarMechanic(35, CarBrand.BMW, Color.White, wheels, 1.9d, true),
+                new CarMechanic(45, CarBrand.BMW, Color.White, wheels, 1.9d, false)
             };
 
             List<CarBrand> carBrands = new List<CarBrand>();
@@ -96,11 +97,15 @@ namespace CarTests
                 new CarMechanic(20, CarBrand.Lada, Color.Green, wheels, 1.8d, true),
                 new CarAutomatic(30, CarBrand.BMW, Color.Green, wheels, 2.0d, true),
                 new CarAutomatic(25, CarBrand.Hyuidnai, Color.Red, wheels, 1.9d, true),
-                new CarMechanic(35, CarBrand.Ford, Color.Red, wheels, 1.9d, true)
+                new CarMechanic(35, CarBrand.Ford, Color.Red, wheels, 1.9d, true),
+                new CarMechanic(35, CarBrand.Ford, Color.Black, wheels, 1.9d, false),
+                new CarMechanic(35, CarBrand.Ford, Color.Black, wheels, 1.9d, true),
+                new CarMechanic(35, CarBrand.Ford, Color.Black, wheels, 1.9d, true)
             };
 
             List<Color> colors = new List<Color>();
             colors.Add(Color.Red);
+            colors.Add(Color.Black);
 
             // Act
             CarsFiltrator carsFiltrator = new CarsFiltrator(cars);
@@ -111,7 +116,7 @@ namespace CarTests
         }
 
         [Test]
-        public void GetWheelsDiameterCarWichBreaksTheLeast_Test()
+        public void GetGreatestWheelsDiameterCarWichBreaksTheLeast_Test()
         {
             // Arrange
             List<ICar> cars = new List<ICar>();
@@ -126,13 +131,16 @@ namespace CarTests
             cars = new List<ICar>()
             {
                 new CarAutomatic(10, CarBrand.Hyuidnai, Color.Green, wheelsSmall, 1.6d, true),
+                new CarAutomatic(10, CarBrand.Hyuidnai, Color.Green, wheelsSmall, 1.6d, false),
                 new CarAutomatic(0, CarBrand.Lada, Color.Green,wheelsBig, 1.6d, true),
                 new CarAutomatic(5, CarBrand.Lada, Color.Green, wheelsSmall, 1.6d, true),
                 new CarMechanic(15, CarBrand.Lada, Color.Green, wheelsBig, 1.7d, true),
+                new CarMechanic(15, CarBrand.Lada, Color.Green, wheelsBig, 1.7d, false),
                 new CarMechanic(20, CarBrand.Lada, Color.Green, wheelsBig, 1.8d, true),
                 new CarAutomatic(30, CarBrand.BMW, Color.Green, wheelsSmall, 2.0d, true),
                 new CarAutomatic(25, CarBrand.Hyuidnai, Color.White, wheelsGigant, 1.9d, true),
-                new CarMechanic(35, CarBrand.Ford, Color.Red, wheelsGigant, 1.9d, true)
+                new CarMechanic(35, CarBrand.Ford, Color.Red, wheelsGigant, 1.9d, true),
+                new CarMechanic(35, CarBrand.Ford, Color.Red, wheelsGigant, 1.9d, false)
             };
 
             List<int> diametrWheels = new List<int>();
@@ -140,7 +148,7 @@ namespace CarTests
             diametrWheels.Add(23);
             // Act
             CarsFiltrator carsFiltrator = new CarsFiltrator(cars);
-            List<int> diameterWheelsTests = carsFiltrator.GetWheelsDiameterCarWichBreaksTheLeast();
+            List<int> diameterWheelsTests = carsFiltrator.GetGreatestWheelsDiameterCarWichBreaksTheLeast();
 
             // Assert
             Assert.AreEqual(diametrWheels, diameterWheelsTests);

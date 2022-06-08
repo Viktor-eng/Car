@@ -25,7 +25,7 @@ namespace Car
             var brokenCarsOrderedByBrandAndEngineDisplacemant = carsFiltrator.GetBrokenCarsOrderedByBrandAndEngineDisplacemant();
             var brandCarWhichBreaksTheMost = carsFiltrator.GetBrandCarWhichBreaksTheMost();
             var colorCarWichBreaksTheLeast = carsFiltrator.GetColorCarWichBreaksTheLeast();
-            var wheelsDiameterCarWichBreaksTheLeast = carsFiltrator.GetWheelsDiameterCarWichBreaksTheLeast();
+            var greatestWheelsDiameterCarWichBreaksTheLeast = carsFiltrator.GetGreatestWheelsDiameterCarWichBreaksTheLeast();
             var carBrandWithTheLargestEngineDisplacement = carsFiltrator.GetCarBrandWithTheLargestEngineDisplacement();
             var brokenWheels = carsFiltrator.GetBrokenWheels();
         }

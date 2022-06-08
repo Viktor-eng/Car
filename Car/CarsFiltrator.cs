@@ -69,25 +69,28 @@ namespace Car
             return listColor;
         }
 
-        public List<int> GetWheelsDiameterCarWichBreaksTheLeast()
+        public List<int> GetGreatestWheelsDiameterCarWichBreaksTheLeast()
         {
             var sortCars = _cars
-                .Where(c => c.IsBroken)
-                .GroupBy(c => c.CarBrand)
-                .ToDictionary(c => c.Key, c => c.ToArray());
+               .Where(c => c.IsBroken)
+               .GroupBy(c => c.CarBrand)
+               .ToDictionary(c => c.Key, c => c.ToArray())
+               .OrderBy(c => c.Value.Count());
 
-            List<int> listDiameter = new List<int>();
-            var minCarBrand = sortCars.Min(c => c.Value.Length);
-            var minDiametr = sortCars.Where(c => c.Value.Length == minCarBrand).First().Value.First().Wheels.First().WheelDiameter;
+            var valueMinBrokenCar = sortCars.Min(c => c.Value.Length);
+            List<int> listMaxDiameterWheels = new List<int>();
 
             foreach (var item in sortCars)
             {
-                if (item.Value.Length == minCarBrand)
+                if(item.Value.Length == valueMinBrokenCar)
                 {
-                    listDiameter.Add((item.Value).First().Wheels.First().WheelDiameter);
+                   var maxDiameterWheels = item.Value
+                        .SelectMany(c => c.Wheels)
+                        .Max(c => c.WheelDiameter);
+                    listMaxDiameterWheels.Add(maxDiameterWheels);
                 }
             }
-            return listDiameter;
+            return listMaxDiameterWheels;
         }
 
         public List<CarBrand> GetCarBrandWithTheLargestEngineDisplacement()

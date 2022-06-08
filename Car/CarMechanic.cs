@@ -9,16 +9,17 @@ namespace Car
 
         public override bool Equals(object obj)
         {
-            return obj is CarAutomatic automatic &&
-                   Color == automatic.Color &&
-                   CarBrand == automatic.CarBrand &&
-                   EngineDisplacement == automatic.EngineDisplacement &&
-                   IsBroken == automatic.IsBroken;
+            return obj is CarAutomatic mechanic &&
+                   Id == mechanic.Id &&
+                   Color == mechanic.Color &&
+                   CarBrand == mechanic.CarBrand &&
+                   EngineDisplacement == mechanic.EngineDisplacement &&
+                   IsBroken == mechanic.IsBroken;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Color, CarBrand, EngineDisplacement, IsBroken);
+            return HashCode.Combine(Id, Color, CarBrand, EngineDisplacement, IsBroken);
         }
 
         protected override void TransmissionDrive()
