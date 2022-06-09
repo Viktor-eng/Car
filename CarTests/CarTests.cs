@@ -25,18 +25,12 @@ namespace CarTests
         [Test]
         public void PassNullCars_ThrowArgumentNullException_Success_Test()
         {
-            // ASSIGN
-            // ACT
-            // ASSERT
             Assert.Throws<ArgumentNullException>(() => new CarsFiltrator(null));
         }
 
         [Test]
         public void PassEmptyCars_DoesNotThrowException_Success_Test()
         {
-            // ASSIGN
-            // ACT
-            // ASSERT
             Assert.DoesNotThrow(() => new CarsFiltrator(Enumerable.Empty<ICar>()));
         }
     }
